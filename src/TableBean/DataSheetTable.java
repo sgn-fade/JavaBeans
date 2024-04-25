@@ -3,7 +3,6 @@ package TableBean;
 import javax.swing.*;
 import java.awt.*;
 
-import static java.lang.System.exit;
 
 public class DataSheetTable extends JPanel {
     DataSheetTableModel tableModel = new DataSheetTableModel();
@@ -27,25 +26,42 @@ public class DataSheetTable extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
 
-
         addButton.addActionListener(e -> {
-            tableModel.addRow();
+            tableModel.getDataSheet().addDataItem(new Data());
+            tableModel.setRowCount(tableModel.getRowCount() + 1);
+            table.revalidate();
+            tableModel.fireDataSheetChange();
         });
         deleteButton.addActionListener(e -> {
-            tableModel.deleteRow();
+            if (tableModel.getRowCount() > 1) {
+                tableModel.setRowCount(tableModel.getRowCount() - 1);
+                tableModel.getDataSheet().removeDataItem(
+                        tableModel.getDataSheet().size() - 1);
+                table.revalidate();
+                tableModel.fireDataSheetChange();
+            } else {
+                tableModel.getDataSheet().getDataItem(0).setDate("");
+                tableModel.getDataSheet().getDataItem(0).setX(0);
+                tableModel.getDataSheet().getDataItem(0).setY(0);
+                table.revalidate();
+                table.repaint();
+                tableModel.fireDataSheetChange();
+            }
+
         });
-
-
 
 
     }
+
     public DataSheetTableModel getTableModel() {
         return tableModel;
     }
+
     public void setTableModel(DataSheetTableModel tableModel) {
         this.tableModel = tableModel;
         table.revalidate();
     }
+
     public void revalidate() {
         if (table != null) table.revalidate();
     }

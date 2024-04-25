@@ -3,18 +3,18 @@ package TableBean;
 import java.util.ArrayList;
 
 public class DataSheet {
-    private ArrayList<Data> data = new ArrayList<Data>();
+    private ArrayList<Data> dataTable = new ArrayList<Data>();
 
     public int size() {
-        return data.size();
+        return dataTable.size();
     }
     public Data getDataItem(int index) {
-        return data.get(index);
+        return dataTable.get(index);
     }
-    public void addRow(){
-        data.add(new Data());
+    public void addDataItem(Data data) {
+        dataTable.add(data);
     }
-    public void deleteRow(){
-        data.remove(data.size() - 1);
+    public void removeDataItem(int index) {
+        dataTable.remove(index);
     }
 }

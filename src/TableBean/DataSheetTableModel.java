@@ -1,15 +1,33 @@
 package TableBean;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class DataSheetTableModel extends AbstractTableModel {
     private static final long serialVersionUID = 1L;
+
+    private ArrayList<DataSheetChangeListener> listenerList = new ArrayList<>();
+    private DataSheetChangeEvent event = new DataSheetChangeEvent(this);
 
     private int columnCount = 3;
     private int rowCount = 4;
     private DataSheet dataSheet = null;
 
     String[] columnNames = {"Date", "X Value", "Y Value"};
+
+    public void addDataSheetChangeListener(DataSheetChangeListener l) {
+        listenerList.add(l);
+    }
+    public void removeDataSheetChangeListener(DataSheetChangeListener l) {
+        listenerList.remove(l);
+    }
+
+    protected void fireDataSheetChange() {
+        Iterator<DataSheetChangeListener> i = listenerList.iterator();
+        while ( i.hasNext() )
+            (i.next()).dataChanged(event);
+    }
 
 
     public DataSheet getDataSheet() {
@@ -19,6 +37,7 @@ public class DataSheetTableModel extends AbstractTableModel {
     public void setDataSheet(DataSheet dataSheet) {
         this.dataSheet = dataSheet;
         rowCount = this.dataSheet.size();
+        fireDataSheetChange();
     }
 
     @Override
@@ -29,14 +48,7 @@ public class DataSheetTableModel extends AbstractTableModel {
     public int getRowCount() {
         return rowCount;
     }
-    public void addRow(){
-        dataSheet.addRow();
-        rowCount++;
-    }
-    public void deleteRow(){
-        dataSheet.deleteRow();
-        rowCount--;
-    }
+
     @Override
     public String getColumnName(int column) {
         return columnNames[column];
@@ -61,6 +73,7 @@ public class DataSheetTableModel extends AbstractTableModel {
                     dataSheet.getDataItem(rowIndex).setY(d);
                 }
             }
+            fireDataSheetChange();
         } catch (Exception ex) {}
     }
     @Override
