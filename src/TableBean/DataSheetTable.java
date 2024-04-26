@@ -20,7 +20,7 @@ public class DataSheetTable extends JPanel {
 
         DataSheet dataSheet = new DataSheet();
         tableModel.setDataSheet(dataSheet);
-        table.setModel(tableModel);
+        setTableModel(tableModel);
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
@@ -47,7 +47,6 @@ public class DataSheetTable extends JPanel {
                 table.repaint();
                 tableModel.fireDataSheetChange();
             }
-
         });
 
 
