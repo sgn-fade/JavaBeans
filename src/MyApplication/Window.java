@@ -16,7 +16,7 @@ public class Window extends JFrame {
 
     public Window() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(400, 200, 600, 600);
+        setBounds(400, 200, 610, 500);
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new java.io.File("."));
         dataSheet.addDataItem(new Data());
@@ -32,7 +32,7 @@ public class Window extends JFrame {
         clearButton.addActionListener(e -> {
             dataSheet = new DataSheet();
             dataSheet.addDataItem(new Data());
-            dataSheetTable.getTableModel().setDataSheet(dataSheet);
+            dataSheetTable.setDataSheet(dataSheet);
             dataSheetTable.revalidate();
             graph.setDataSheet(dataSheet);
         });
@@ -68,7 +68,7 @@ public class Window extends JFrame {
                     graph.revalidate();
                     graph.repaint();
                 });
-        graph.setPreferredSize(new Dimension(300, 300));
+        graph.setPreferredSize(new Dimension(400, 300));
         dataSheetTable.setPreferredSize(new Dimension(200, 300));
         add(graph, BorderLayout.EAST);
         add(dataSheetTable, BorderLayout.WEST);
