@@ -1,6 +1,8 @@
 package MyApplication;
 
 import TableBean.*;
+import xml.DataSheetToXML;
+import xml.SAXPar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,22 +39,19 @@ public class Window extends JFrame {
         saveButton.addActionListener(e -> {
             if (JFileChooser.APPROVE_OPTION == fileChooser.showSaveDialog(null)) {
                 String fileName = fileChooser.getSelectedFile().getPath();
-//                    DataSheetToXML.saveXMLDoc(
-//                            DataSheetToXML.createDataSheetDOM(dataSheet), fileName);
+                DataSheetToXML.saveXMLDoc(dataSheet, fileName);
                 JOptionPane.showMessageDialog(null,
                         "File " + fileName.trim() + " saved!", "Результати збережені",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         });
-        readButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(null)) {
-                    String fileName = fileChooser.getSelectedFile().getPath();
-//                    dataSheet = SAXRead.XMLReadData(fileName);
-                    dataSheetTable.getTableModel().setDataSheet(dataSheet);
-                    dataSheetTable.revalidate();
-                    graph.setDataSheet(dataSheet);
-                }
+        readButton.addActionListener(e -> {
+            if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(null)) {
+                String fileName = fileChooser.getSelectedFile().getPath();
+                dataSheet = SAXPar.XMLReadData(fileName);
+                dataSheetTable.setDataSheet(dataSheet);
+                dataSheetTable.revalidate();
+                graph.setDataSheet(dataSheet);
             }
         });
         southPanel.add(readButton);

@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class DataSheet {
     private ArrayList<Data> dataTable = new ArrayList<Data>();
 
+    public ArrayList<Data> getDataTable() {
+        return dataTable;
+    }
+
     public int size() {
         return dataTable.size();
     }

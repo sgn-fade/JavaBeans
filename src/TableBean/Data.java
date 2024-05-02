@@ -8,6 +8,15 @@ public class Data {
 
     private String date;
 
+    public Data(double x, double y, String date) {
+        this.x = x;
+        this.y = y;
+        this.date = date;
+    }
+
+    public Data() {
+    }
+
     public double getX() {
         return x;
     }

@@ -61,4 +61,10 @@ public class DataSheetTable extends JPanel {
     public void revalidate() {
         if (table != null) table.revalidate();
     }
+
+    public void setDataSheet(DataSheet dataSheet) {
+        getTableModel().setDataSheet(dataSheet);
+        tableModel.fireTableDataChanged();
+
+    }
 }
