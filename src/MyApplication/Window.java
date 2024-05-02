@@ -63,7 +63,7 @@ public class Window extends JFrame {
         graph.setDataSheet(dataSheet);
         dataSheetTable.getTableModel().setDataSheet(dataSheet);
 
-        dataSheetTable.getTableModel().addDataSheetChangeListener(
+        dataSheetTable.getTableModel().addTableModelListener(
                 e -> {
                     graph.revalidate();
                     graph.repaint();

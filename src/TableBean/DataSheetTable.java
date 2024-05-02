@@ -2,6 +2,7 @@ package TableBean;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class DataSheetTable extends JPanel {
@@ -48,7 +49,6 @@ public class DataSheetTable extends JPanel {
 
 
     }
-
     public DataSheetTableModel getTableModel() {
         return tableModel;
     }

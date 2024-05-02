@@ -7,8 +7,6 @@ import java.util.Iterator;
 public class DataSheetTableModel extends AbstractTableModel {
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<DataSheetChangeListener> listenerList = new ArrayList<>();
-    private DataSheetChangeEvent event = new DataSheetChangeEvent(this);
 
     private int columnCount = 3;
     private int rowCount = 4;
@@ -16,16 +14,7 @@ public class DataSheetTableModel extends AbstractTableModel {
 
     String[] columnNames = {"Date", "X Value", "Y Value"};
 
-    public void addDataSheetChangeListener(DataSheetChangeListener l) {
-        listenerList.add(l);
-    }
-    public void removeDataSheetChangeListener(DataSheetChangeListener l) {
-        listenerList.remove(l);
-    }
 
-    protected void fireDataSheetChange() {
-        for (DataSheetChangeListener dataSheetChangeListener : listenerList) dataSheetChangeListener.dataChanged(event);
-    }
 
 
     public DataSheet getDataSheet() {
@@ -35,7 +24,6 @@ public class DataSheetTableModel extends AbstractTableModel {
     public void setDataSheet(DataSheet dataSheet) {
         this.dataSheet = dataSheet;
         rowCount = this.dataSheet.size();
-        fireDataSheetChange();
     }
 
     @Override
@@ -71,7 +59,7 @@ public class DataSheetTableModel extends AbstractTableModel {
                     dataSheet.getDataItem(rowIndex).setY(d);
                 }
             }
-            fireDataSheetChange();
+            fireTableDataChanged();
         } catch (Exception ex) {}
     }
     @Override
