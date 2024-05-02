@@ -14,9 +14,10 @@ import java.io.IOException;
 
 
 public class SAXPar {
-    private static final DataSheet sheet = new DataSheet();
+    private static DataSheet sheet;
 
     public static DataSheet XMLReadData(String filename){
+        sheet = new DataSheet();
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser;
         try {
