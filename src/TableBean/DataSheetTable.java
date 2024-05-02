@@ -20,7 +20,7 @@ public class DataSheetTable extends JPanel {
 
         DataSheet dataSheet = new DataSheet();
         tableModel.setDataSheet(dataSheet);
-        setTableModel(tableModel);
+        table.setModel(tableModel);
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
@@ -29,25 +29,22 @@ public class DataSheetTable extends JPanel {
         addButton.addActionListener(e -> {
             tableModel.getDataSheet().addDataItem(new Data());
             tableModel.setRowCount(tableModel.getRowCount() + 1);
-            table.revalidate();
-            tableModel.fireDataSheetChange();
+            tableModel.fireTableRowsInserted(tableModel.getRowCount() - 1, tableModel.getRowCount() - 1);
         });
+
         deleteButton.addActionListener(e -> {
             if (tableModel.getRowCount() > 1) {
                 tableModel.setRowCount(tableModel.getRowCount() - 1);
-                tableModel.getDataSheet().removeDataItem(
-                        tableModel.getDataSheet().size() - 1);
-                table.revalidate();
-                tableModel.fireDataSheetChange();
+                tableModel.getDataSheet().removeDataItem(tableModel.getRowCount());
+                tableModel.fireTableRowsDeleted(tableModel.getRowCount(), tableModel.getRowCount());
             } else {
                 tableModel.getDataSheet().getDataItem(0).setDate("");
                 tableModel.getDataSheet().getDataItem(0).setX(0);
                 tableModel.getDataSheet().getDataItem(0).setY(0);
-                table.revalidate();
-                table.repaint();
-                tableModel.fireDataSheetChange();
+                tableModel.fireTableDataChanged();
             }
         });
+
 
 
     }

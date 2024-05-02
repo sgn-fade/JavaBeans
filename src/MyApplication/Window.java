@@ -13,8 +13,8 @@ public class Window extends JFrame {
     private final DataSheetGraph graph = new DataSheetGraph();
 
     public Window() {
-        setResizable(false);
-        setSize(600, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(400, 200, 600, 600);
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new java.io.File("."));
         dataSheet.addDataItem(new Data());
@@ -62,14 +62,15 @@ public class Window extends JFrame {
         add(southPanel, BorderLayout.SOUTH);
 
         graph.setDataSheet(dataSheet);
-
         dataSheetTable.getTableModel().setDataSheet(dataSheet);
+
         dataSheetTable.getTableModel().addDataSheetChangeListener(
                 e -> {
                     graph.revalidate();
                     graph.repaint();
                 });
-
+        graph.setPreferredSize(new Dimension(300, 300));
+        dataSheetTable.setPreferredSize(new Dimension(200, 300));
         add(graph, BorderLayout.EAST);
         add(dataSheetTable, BorderLayout.WEST);
     }

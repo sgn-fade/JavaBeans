@@ -24,9 +24,7 @@ public class DataSheetTableModel extends AbstractTableModel {
     }
 
     protected void fireDataSheetChange() {
-        Iterator<DataSheetChangeListener> i = listenerList.iterator();
-        while ( i.hasNext() )
-            (i.next()).dataChanged(event);
+        for (DataSheetChangeListener dataSheetChangeListener : listenerList) dataSheetChangeListener.dataChanged(event);
     }
 
 
@@ -90,8 +88,13 @@ public class DataSheetTableModel extends AbstractTableModel {
     }
 
     public void setRowCount(int rowCount) {
-        if (rowCount > 0)
-            this.rowCount = rowCount;
+        int oldRowCount = this.rowCount;
+        this.rowCount = rowCount;
+        if (rowCount > oldRowCount) {
+            fireTableRowsInserted(oldRowCount, rowCount - 1);
+        } else if (rowCount < oldRowCount) {
+            fireTableRowsDeleted(rowCount, oldRowCount - 1);
+        }
     }
 
 }

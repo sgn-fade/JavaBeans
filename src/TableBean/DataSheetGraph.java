@@ -26,7 +26,7 @@ public class DataSheetGraph extends JPanel {
     }
 
     private double minX() {
-        double result = Double.POSITIVE_INFINITY;
+        double result = 0;
         if (dataSheet != null) {
             int size = dataSheet.size();
             for (int i = 0; i < size; i++)
@@ -48,7 +48,7 @@ public class DataSheetGraph extends JPanel {
     }
 
     private double minY() {
-        double result = Double.POSITIVE_INFINITY;
+        double result = 0;
         if (dataSheet != null) {
             int size = dataSheet.size();
             for (int i = 0; i < size; i++)
